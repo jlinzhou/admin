@@ -51,7 +51,7 @@ func InitCsbinEnforcer() (err error) {
 		return
 	}
 	for _, role := range roles {
-		setRolePermission(enforcer, role.ID)
+		setRolePermission(enforcer, role.Id)
 	}
 	Enforcer = enforcer
 	return
@@ -87,7 +87,7 @@ func setRolePermission(enforcer *casbin.Enforcer, roleid uint64) {
 	for _, rolemenu := range rolemenus {
 		menu := models.Menu{}
 		where := models.Menu{}
-		where.ID = rolemenu.MenuId
+		where.Id = rolemenu.MenuId
 		_, err = models.First(&where, &menu)
 		if err != nil {
 			return

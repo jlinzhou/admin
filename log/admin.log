@@ -1,1 +1,0 @@
-20191111 21:56:54.648 [I] [1]  {"RunMode":"debug","HTTPPort":2001,"ReadTimeout":60000000000,"WriteTimeout":60000000000,"TokenExpired":60,"USER":"root","PASSWORD":"a654321B","HOST":"49.234.71.174:3306","DATABASE":"admin","DEBUG":true,"MaxOpenConns":1024,"MaxLifetime":59,"MaxIdleConns":0,"Filename":"./log/admin.log","Level":"debug","Maxsize":512000,"Maxdays":365} [main.go:15]
