@@ -113,7 +113,7 @@ func (User) Create(c *gin.Context) {
 	model.Password = hash.Md5String(common.MD5_PREFIX + model.Password)
 	err = models.Create(&model)
 	if err != nil {
-		common.ResFail(c, "操作失败")
+		common.ResFail(c, err.Error())
 		return
 	}
 	common.ResSuccess(c, gin.H{"id": model.Id})

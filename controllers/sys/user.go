@@ -218,9 +218,9 @@ func (User) Info(c *gin.Context) {
 			models.Create(&menuModelTop)
 			menuModelSys := models.Menu{Status: 1, ParentId: menuModelTop.Id, URL: "", Name: "系统管理", Sequence: 1, MenuType: 1, Code: "Sys", Icon: "lock", OperateType: "none"}
 			models.Create(&menuModelSys)
-			menuModel := models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/icon", Name: "图标管理", Sequence: 10, MenuType: 2, Code: "Icon", Icon: "icon", OperateType: "none"}
-			models.Create(&menuModel)
-			menuModel = models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/menu", Name: "菜单管理", Sequence: 20, MenuType: 2, Code: "Menu", Icon: "documentation", OperateType: "none"}
+			//menuModel := models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/icon", Name: "图标管理", Sequence: 10, MenuType: 2, Code: "Icon", Icon: "icon", OperateType: "none"}
+			//models.Create(&menuModel)
+			menuModel := models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/menu", Name: "菜单管理", Sequence: 20, MenuType: 2, Code: "Menu", Icon: "documentation", OperateType: "none"}
 			models.Create(&menuModel)
 			InitMenu(menuModel)
 			menuModel = models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/role", Name: "角色管理", Sequence: 30, MenuType: 2, Code: "Role", Icon: "tree", OperateType: "none"}
@@ -228,10 +228,10 @@ func (User) Info(c *gin.Context) {
 			InitMenu(menuModel)
 			menuModel = models.Menu{Status: 1, ParentId: menuModel.Id, URL: "/role/setrole", Name: "分配角色菜单", Sequence: 6, MenuType: 3, Code: "RoleSetrolemenu", Icon: "", OperateType: "setrolemenu"}
 			models.Create(&menuModel)
-			menuModel = models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/admins", Name: "后台用户管理", Sequence: 40, MenuType: 2, Code: "Admins", Icon: "user", OperateType: "none"}
+			menuModel = models.Menu{Status: 1, ParentId: menuModelSys.Id, URL: "/userSet", Name: "用户管理", Sequence: 40, MenuType: 2, Code: "UserSet", Icon: "user", OperateType: "none"}
 			models.Create(&menuModel)
 			InitMenu(menuModel)
-			menuModel = models.Menu{Status: 1, ParentId: menuModel.Id, URL: "/admins/setrole", Name: "分配角色", Sequence: 6, MenuType: 3, Code: "AdminsSetrole", Icon: "", OperateType: "setadminrole"}
+			menuModel = models.Menu{Status: 1, ParentId: menuModel.Id, URL: "/userSet/setrole", Name: "分配角色", Sequence: 6, MenuType: 3, Code: "UserSetrole", Icon: "", OperateType: "setuserrole"}
 			models.Create(&menuModel)
 
 			menuData, _ = getAllMenu()
@@ -296,9 +296,9 @@ func getSuperAdminMenu() (out []MenuModel) {
 		Children:  []MenuModel{}}
 	menuTop.Children = append(menuTop.Children, menuModel)
 	menuModel = MenuModel{
-		Path:      "/admins",
-		Component: "Admins",
-		Name:      "Admins",
+		Path:      "/userSet",
+		Component: "UserSet",
+		Name:      "UserSet",
 		Meta:      MenuMeta{Title: "用户管理", NoCache: false},
 		Children:  []MenuModel{}}
 	menuTop.Children = append(menuTop.Children, menuModel)
@@ -343,7 +343,7 @@ func setMenu(menus []models.Menu, parentID uint64) (out []MenuModel) {
 				Children:  []MenuModel{}}
 			menu.Children = append(menu.Children, menuIndex)
 			menu.Name = menu.Name + "index"
-			menu.Meta = MenuMeta{}
+			menu.Meta = MenuMeta{Title: item.Name, Icon: item.Icon, NoCache: noCache}
 		}
 		out = append(out, menu)
 	}

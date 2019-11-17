@@ -1,5 +1,10 @@
 package models
 
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
+
 type User struct {
 	Model
 	Memo     string `gorm:"column:memo;size:64;" json:"memo" form:"memo"`                                                          //备注
@@ -15,6 +20,18 @@ type User struct {
 // 表名
 func (User) TableName() string {
 	return "User"
+}
+// 添加前
+func (m *User) BeforeCreate(scope *gorm.Scope) error {
+	m.CreatedTime = time.Now()
+	m.UpdatedTime = time.Now()
+	return nil
+}
+
+// 更新前
+func (m *User) BeforeUpdate(scope *gorm.Scope) error {
+	m.UpdatedTime = time.Now()
+	return nil
 }
 func (User) Delete(adminsids []uint64) error {
 	tx := DB.Begin()
